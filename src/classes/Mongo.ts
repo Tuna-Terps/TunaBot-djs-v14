@@ -42,7 +42,6 @@ export class DB {
     }
 
     async connect() {
-        //mongodb+srv://tuna-admin:<password>@cluster0.rcrxyti.mongodb.net/?retryWrites=true&w=majority
         await this.self.connect(`mongodb+srv://`+`${process.env.mongoUser}`+`:`+`${process.env.mongoPw}`+`@${process.env.mongoClusterName}.${process.env.mongoId}`+'.mongodb.net/?retryWrites=true&w=majority')
         .then(() => {
             console.log('Connected to Database Successfully')
