@@ -1,7 +1,7 @@
 {
   "name": "ts-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "simple bot for discord js v14",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
@@ -11,8 +11,8 @@
     "watch": "tsc -w"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Tuna Terps",
+  "license": "GNU General Public License v3.0",
   "dependencies": {
     "@discordjs/rest": "^1.5.0",
     "discord-api-types": "^0.37.31",
