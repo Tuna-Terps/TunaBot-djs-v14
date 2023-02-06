@@ -9,12 +9,7 @@ export default new Event("guildMemberRemove", member => {
             const mods = cache.find((ch:any) => ch.id === process.env.modChannelId);    
             if (!mods) return;
             (mods as TextChannel).send(`${member}:${member.id} has left the server . . .`)
-            .then(sent => {
-                sent.react(`👑`);
-                sent.react(`❤`);
-                sent.react(`🐟`);
-            })
-            .catch((leaveError: any) => console.log(`[ MemberLeave Error ] ${leaveError}`))
+            .catch((leaveError: any) => console.log(`[ MemberLeave Error ] ${leaveError}`));
         break;
     }
 })
