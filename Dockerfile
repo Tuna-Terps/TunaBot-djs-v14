@@ -4,4 +4,4 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 ENV environment.d.ts
-CMD ["npm", "ts-node src/index.ts"]
+CMD ["npm", "start"]
