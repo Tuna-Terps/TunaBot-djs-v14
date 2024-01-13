@@ -21,6 +21,13 @@ export default new Command({
         const userId = interaction.user.id
         const ticketChannel = interaction.guild.channels.cache.find((ch) => ch.name === userId)
         const option = interaction.options.data[0].name
+        function ticketTranscript(channel): BufferResolvable {
+            let msgArr = []
+            channel.messages.cache.each(msg => msgArr.push(`**${msg.author.username}**\n${msg.content}`))
+            let tixString = msgArr.join('\n').toString()
+            const buffer = Buffer.from(tixString, 'utf8')
+            return buffer
+        }
         // TICKET CREATE
         if (option === "open") {
             if (ticketChannel) return interaction.reply('You already have a ticket open !').catch(e => console.log(e));
@@ -54,8 +61,14 @@ export default new Command({
             // TICKET DELETE
             if (!ticketChannel) return interaction.reply('You do not have a ticket opened . . .');
             (ticketChannel as TextChannel).send(`${interaction.user}  Your ticket will be deleted . . .`)
+            const attachment = new AttachmentBuilder(ticketTranscript(ticketChannel), {name: 'ticketTranscript.txt'})
+            const ticketInfo = `**Ticket owner:** <@${ticketChannel.name}>\n**Closed by:** ${interaction.user.username}\n**Ticket Origin:** ${ticketChannel.createdAt}`
             setTimeout(() => {
-                ticketChannel.delete()
+                interaction.deleteReply().catch((error: any) => console.error.bind('error :', error))
+                ticketChannel.delete().catch((error: any) => console.error.bind('error :', error))                
+                const mods = interaction.guild.channels.cache.find((ch:any) => ch.id === process.env.modChannelId);    
+                if (!mods) return;
+                (mods as TextChannel).send({content: `**[Event: ticketClosed]** \n${ticketInfo}`, files: [attachment]})
             }, 20000)
         }
         
