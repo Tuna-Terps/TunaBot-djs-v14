@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, ApplicationCommandDataResolvable, Collection, ClientEvents, Routes } from 'discord.js';
+import { Client, GatewayIntentBits, ApplicationCommandDataResolvable, Collection, ClientEvents, Routes, Partials } from 'discord.js';
 import { CommandType } from '../types/command';
 import { RegisterCommandsOptions } from '../types/client';
 
@@ -19,7 +19,9 @@ export class ExtendedClient extends Client {
                 GatewayIntentBits.MessageContent,
                 GatewayIntentBits.GuildMembers,
                 GatewayIntentBits.GuildPresences,
-            ]       
+            ],
+            Partials.Channel,
+            Partials.Message
         })
     }
 
